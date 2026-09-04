@@ -129,25 +129,29 @@ Evaluation metrics were used to compare different approaches and determine which
 
 ---
 
-## 📈 Results
+## 📈 Model Results
 
-The project demonstrates how different preprocessing techniques and regression approaches can affect prediction performance.
+Two regression approaches were tested to investigate the relationship between vehicle features and car prices.
 
-Rather than relying on a single model, the project explores the relationship between:
+| Model                 | R² Score |
+| --------------------- | -------: |
+| Linear Regression     | **0.36** |
+| Polynomial Regression | **0.43** |
 
-```text
-Data Quality
-     +
-Feature Selection
-     +
-Feature Engineering
-     +
-Model Selection
-     ↓
-Prediction Performance
-```
+### 🔍 Comparison
 
-The experiments also show the importance of inspecting the target variable and handling extreme or unrealistic values before training a regression model.
+The **Polynomial Regression** model achieved a higher R² score than the Linear Regression model:
+
+* Linear Regression → **0.36**
+* Polynomial Regression → **0.43**
+* Improvement → **+0.07 R²**
+
+This suggests that the relationship between the selected vehicle features and car price is not completely linear, and introducing polynomial features allowed the model to capture some additional non-linear patterns in the data.
+
+However, an R² score of **0.43** also indicates that a significant portion of the variation in car prices is still not explained by the current features and models.
+
+This provides a useful baseline for future improvements such as better feature engineering, additional regression algorithms, cross-validation, and hyperparameter tuning.
+
 
 ---
 
