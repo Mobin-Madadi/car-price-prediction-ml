@@ -1,229 +1,171 @@
-# 🚗 Car Price Prediction ML
+# 🚗 Car Price Prediction — Machine Learning
 
-A Machine Learning project focused on predicting car prices based on vehicle features using **Python, Pandas, NumPy, Matplotlib, and Scikit-learn**.
+A machine learning project focused on predicting used car prices
+using Python and Scikit-learn.
 
-This project was built as a practical Machine Learning project, covering the main steps of a typical ML workflow — from data cleaning and exploratory data analysis to feature engineering, model training, evaluation, and prediction.
+The project explores data preprocessing, feature engineering,
+categorical encoding, regression models, and model evaluation
+to understand the factors that influence used car prices.
 
----
+## 🎯 Project Goals
 
-## 📌 Project Overview
+- Explore and clean used car price data.
+- Handle missing values and inconsistent categorical data.
+- Perform feature engineering on vehicle specifications.
+- Build reproducible preprocessing and machine learning pipelines.
+- Train and evaluate regression models.
+- Investigate the features that contribute to price predictions.
+- Prepare the trained model for future API integration.
 
-The goal of this project is to build a model that can estimate the price of a car based on information such as its mileage, engine characteristics, and other available vehicle features.
+## 🛠️ Technologies
 
-The project focuses on understanding the complete workflow of a **Regression Machine Learning problem** rather than simply training a model.
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- Jupyter Notebook
 
-### 🔄 Machine Learning Workflow
+## 📊 Dataset Features
 
-```text
-Raw Dataset
-     ↓
-Data Cleaning
-     ↓
-Data Preprocessing
-     ↓
-Exploratory Data Analysis
-     ↓
-Feature Engineering
-     ↓
-Train / Test Split
-     ↓
-Model Training
-     ↓
-Model Evaluation
-     ↓
-Prediction
-```
+The dataset includes information about used vehicles, such as:
 
----
+- Brand and model
+- Model year
+- Mileage
+- Fuel type
+- Engine specifications
+- Transmission
+- Exterior and interior colors
+- Accident history
+- Vehicle price
 
-## 📂 Project Structure
+The exact features used by the model may differ from the
+original dataset after preprocessing and feature engineering.
 
-```text
-car-price-prediction-ml/
-│
-├── data/
-│   └── dataset files
-│
-├── notebooks/
-│   └── machine learning notebooks
-│
-├── README.md
-└── LICENSE
-```
+## ⚙️ Machine Learning Workflow
 
----
+### 1. Data Cleaning
 
-## 🧹 Data Cleaning & Preprocessing
+- Inspect missing values.
+- Handle missing numerical and categorical values.
+- Normalize inconsistent categorical labels.
+- Remove features that provide no useful variation.
 
-Before training the models, the dataset was cleaned and prepared for Machine Learning.
+### 2. Feature Engineering
 
-The preprocessing steps included:
+Additional numerical features are extracted from engine
+specifications, including:
 
-* Handling missing values
-* Inspecting data types
-* Removing or dealing with unnecessary data
-* Converting features into usable numerical formats
-* Checking the distribution of the target variable
-* Detecting and handling unrealistic values
-* Preparing the dataset for model training
+- `engine_size`
+- `horsepower`
 
----
+Missing values in these engineered features are handled
+using median imputation.
 
-## 📊 Exploratory Data Analysis
+### 3. Preprocessing
 
-Exploratory Data Analysis was performed to better understand the dataset and identify relationships between vehicle features and price.
+A Scikit-learn `ColumnTransformer` is used to process
+numerical and categorical features.
 
-The analysis included:
+Numerical preprocessing:
+- `StandardScaler`
 
-* Distribution analysis
-* Feature relationships
-* Correlation analysis
-* Visualization of important variables
-* Investigation of outliers
-* Analysis of the target variable
+Categorical preprocessing:
+- `OneHotEncoder`
+- `handle_unknown="ignore"`
+- `min_frequency=10`
 
-### 📈 Visualization
+The preprocessing steps are integrated into a Scikit-learn
+`Pipeline` to keep transformations consistent between
+training and prediction.
 
-The project uses **Matplotlib** to visualize the data and better understand patterns within the dataset.
+### 4. Model Training
 
----
+The project currently explores regression algorithms,
+including:
 
-## ⚙️ Feature Engineering
+- Linear Regression
+- Random Forest Regressor
 
-Different features were investigated and prepared to improve the performance of the regression models.
+Random Forest is used to model nonlinear relationships
+between vehicle specifications and prices.
 
-Feature engineering was used to:
+### 5. Model Evaluation
 
-* Transform raw features
-* Prepare numerical variables
-* Improve model input
-* Investigate relationships between features and car prices
+Model performance is evaluated using regression metrics:
 
----
+- R² Score
+- Mean Absolute Error (MAE)
+- Mean Squared Error (MSE)
+- Root Mean Squared Error (RMSE)
 
-## 🤖 Machine Learning Models
+The project also compares training and test R² scores
+to investigate potential overfitting.
 
-The project focuses on **Regression** because the target variable — car price — is continuous.
+### 6. Feature Importance
 
-Different regression approaches were investigated, including:
+Permutation importance is used to investigate how individual
+input features affect model performance.
 
-### Multiple Linear Regression
+This helps identify which vehicle characteristics are
+most informative for predicting prices.
 
-A baseline regression model used to estimate car prices from multiple vehicle features.
+## 📈 Preliminary Results
 
-### Polynomial Regression
+On the current train-test split, the following R² scores
+have been observed:
 
-Polynomial features were also explored to investigate whether non-linear relationships between the input features and car price could improve the model.
+| Model | Test R² |
+|---|---:|
+| Linear Regression | ~0.690 |
+| Random Forest Regressor | ~0.822 |
 
-The models were compared based on their performance on unseen test data.
+The Random Forest model currently achieves the best observed
+test R² score.
 
----
+These results are preliminary and depend on the selected
+train-test split and model configuration. Cross-validation
+and further validation are needed to assess generalization
+more reliably.
 
-## 🧪 Model Evaluation
+## 🚀 Getting Started
 
-The trained models were evaluated using a separate test dataset.
+### Prerequisites
 
-The evaluation process focuses on measuring how accurately the models can predict car prices for data they have not seen during training.
+- Python
+- Jupyter Notebook
+- Required Python libraries
 
-Evaluation metrics were used to compare different approaches and determine which model performed better.
+### Installation
 
----
-
-## 📈 Model Results
-
-Two regression approaches were tested to investigate the relationship between vehicle features and car prices.
-
-| Model                 | R² Score |
-| --------------------- | -------: |
-| Linear Regression     | **0.36** |
-| Polynomial Regression | **0.43** |
-
-### 🔍 Comparison
-
-The **Polynomial Regression** model achieved a higher R² score than the Linear Regression model:
-
-* Linear Regression → **0.36**
-* Polynomial Regression → **0.43**
-* Improvement → **+0.07 R²**
-
-This suggests that the relationship between the selected vehicle features and car price is not completely linear, and introducing polynomial features allowed the model to capture some additional non-linear patterns in the data.
-
-However, an R² score of **0.43** also indicates that a significant portion of the variation in car prices is still not explained by the current features and models.
-
-This provides a useful baseline for future improvements such as better feature engineering, additional regression algorithms, cross-validation, and hyperparameter tuning.
-
-
----
-
-## 🛠️ Technologies Used
-
-<p align="left">
-  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
-  <img src="https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white"/>
-</p>
-
----
-
-## 🚀 How to Run
-
-### 1. Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/Mobin-Madadi/car-price-prediction-ml.git
-```
-
-### 2. Navigate to the project
-
-```bash
 cd car-price-prediction-ml
 ```
 
-### 3. Install the required libraries
+Install the required dependencies:
 
 ```bash
-pip install numpy pandas matplotlib scikit-learn jupyter
+pip install numpy pandas scikit-learn jupyter
 ```
 
-### 4. Start Jupyter Notebook
+Open the project notebook and execute its cells in order.
 
-```bash
-jupyter notebook
-```
+Make sure the dataset is available at the path expected
+by the notebook.
 
-Then open the notebooks inside the `notebooks` directory.
+🔮 Future Improvements
+- Validate model performance using cross-validation.
+- Evaluate additional regression algorithms.
+- Improve model generalization.
+- Save the complete trained preprocessing and prediction pipeline.
+- Build a REST API using FastAPI.
+- Add input validation and prediction tests.
+- Document API usage and example requests.
 
----
+👨‍💻 Author
+Mobin Madadi
 
-## 📚 What I Learned
-
-This project helped me gain practical experience with:
-
-* 🐍 Python for Machine Learning
-* 🧹 Data Cleaning
-* 📊 Exploratory Data Analysis
-* 📈 Data Visualization
-* ⚙️ Feature Engineering
-* 🔀 Train/Test Splitting
-* 🤖 Regression Models
-* 📐 Multiple Linear Regression
-* 📊 Polynomial Regression
-* 🧪 Model Evaluation
-* 🔍 Comparing Machine Learning approaches
-
----
-
-## 👤 Author
-
-**Mobin Madadi**
-
-🐙 GitHub: [Mobin-Madadi](https://github.com/Mobin-Madadi)
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
+GitHub: *[Mobin Madadi](https://github.com/Mobin-Madadi)*
