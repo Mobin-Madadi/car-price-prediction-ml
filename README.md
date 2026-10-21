@@ -118,7 +118,7 @@ have been observed:
 | Model | Test R² |
 |---|---:|
 | Linear Regression | ~0.690 |
-| Random Forest Regressor | ~0.822 |
+| Random Forest Regressor | ~0.83 |
 
 The Random Forest model currently achieves the best observed
 test R² score.
